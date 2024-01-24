@@ -11,6 +11,13 @@ const NavBar = () => {
                 <h2>
                     <Link to='/' className="link-light text-decoration-none">Chat App</Link>
                 </h2>
+
+                {
+                    user && (<>
+                  <span className="text-warning">Welcome {user?.name && user.name.charAt(0).toUpperCase() + user.name.slice(1)}</span>
+
+                    </>)
+                }
                 <Nav>
                     <Stack direction="horizontal" gap={3}>
                         {
@@ -18,7 +25,6 @@ const NavBar = () => {
                             ? (
                                 <>
                                         <Link onClick={() => { logoutUser() }} to='/login' className="link-light text-decoration-none">Logout</Link>
-                                        <span className="text-warning">Welcome {user?.name}</span>
                                     </>
                                 )
                                 
