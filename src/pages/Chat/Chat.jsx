@@ -10,11 +10,8 @@ const Chat = () => {
 
 
     const { user } = useContext(AuthContext);
-    const { userChats, isUserChatsLoading, isUserChatsError } = useContext(ChatContext);
-
-
-
-    console.log('UserChats', userChats)
+    const { userChats, isUserChatsLoading, updateCurrentChat } = useContext(ChatContext);
+ 
     return (
         <Container>
             <PotencialChats />
@@ -24,7 +21,7 @@ const Chat = () => {
                         {isUserChatsLoading && <p>Loading chats...</p>}
                         {userChats?.map((chat, index) => {
                             return (
-                                <div key={index}>
+                                <div key={index} onClick={()=>updateCurrentChat(chat)}>
                                     <UserChat chat={chat} user={user} />
                                 </div>
                             )
