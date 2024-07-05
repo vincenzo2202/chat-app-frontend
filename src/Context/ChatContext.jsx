@@ -12,8 +12,8 @@ export const ChatContextProvider = ({ children, user }) => {
     const [messages, setMessages] = useState(null)
     const [isMessagesLoading, setIsMessagesLoading] = useState(false)
     const [messagesError, setMessagesError] = useState(null)
-
-    console.log('messages', messages);
+    const [sendTextMessageError, setSendTextMessageError] = useState(null)
+    const [newMessage, setNewMessage] = useState(null)
 
     useEffect(() => {
         const getUsers = async () => {
@@ -85,10 +85,36 @@ export const ChatContextProvider = ({ children, user }) => {
 
         };
         getMessages()
+        console.log('currentChat', currentChat);
     }, [currentChat]);
 
+    const sendTextMessage = useCallback(async(textMessage, sender, currentChatId, setTextMessage) => { 
+            if(!textMessage) return console.log('No message to send');
+
+           const response = await postRequest(`${baseUrl}/messages`, JSON.stringify({
+                chatId: currentChatId,
+                senderId: sender._id,
+                text: textMessage
+            }));
+
+            if(response.error) {
+                return setSendTextMessageError(response)
+            }
+
+            setNewMessage(response)
+            setMessages((prev) => [...prev, response])
+            setTextMessage('')
+        }
+    );
+
     const updateCurrentChat = useCallback((chat) => {
-        setCurrentChat(chat);
+        setCurrentChat({ ...chat });
+        if (chat) {
+            localStorage.setItem('currentChat', JSON.stringify(chat));
+            // console.log('updateCurrentChat', chat);
+        } else {
+            localStorage.removeItem('currentChat');
+        }
     }, [])
 
     const createChat = useCallback(async (firstId, secondId) => {
@@ -118,6 +144,8 @@ export const ChatContextProvider = ({ children, user }) => {
                 messages,
                 isMessagesLoading,
                 messagesError,
+                sendTextMessage,
+                currentChat,
 
             }}
         >

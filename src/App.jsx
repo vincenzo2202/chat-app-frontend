@@ -8,6 +8,7 @@ import NavBar from './components/NavBar/NavBar';
 import { useContext } from 'react';
 import { AuthContext } from './Context/AuthContext';
 import { ChatContextProvider } from './Context/ChatContext';
+import ChatBox from './components/ChatBox/ChatBox';
 
 function App() {
 
@@ -15,7 +16,7 @@ function App() {
 
   return (
     <>
-      <ChatContextProvider user={user}>
+      <ChatContextProvider user={user} >
         <NavBar />
         <Container >
           <Routes>
@@ -24,6 +25,7 @@ function App() {
             <Route path='/Login' element={user ? <Chat /> : <Login />} />
             <Route path='*' element={<Navigate to='/' />} />
           </Routes>
+          <ChatBox />
         </Container>
       </ChatContextProvider>
     </>
