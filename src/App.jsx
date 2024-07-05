@@ -24,8 +24,7 @@ function App() {
             <Route path='/register' element={user ? <Chat /> : <Register />} />
             <Route path='/Login' element={user ? <Chat /> : <Login />} />
             <Route path='*' element={<Navigate to='/' />} />
-          </Routes>
-          <ChatBox />
+          </Routes> 
         </Container>
       </ChatContextProvider>
     </>

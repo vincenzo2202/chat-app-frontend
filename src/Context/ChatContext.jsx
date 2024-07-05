@@ -110,12 +110,11 @@ export const ChatContextProvider = ({ children, user }) => {
     const updateCurrentChat = useCallback((chat) => {
         setCurrentChat({ ...chat });
         if (chat) {
-            localStorage.setItem('currentChat', JSON.stringify(chat));
-            // console.log('updateCurrentChat', chat);
+            localStorage.setItem('currentChat', JSON.stringify(chat)); 
         } else {
             localStorage.removeItem('currentChat');
         }
-    }, [])
+    }, []) 
 
     const createChat = useCallback(async (firstId, secondId) => {
         const response = await postRequest(`${baseUrl}/chats`, JSON.stringify({
