@@ -23,8 +23,8 @@ export const AUTHContextProvider = ({ children }) => {
     });
 
 
-    console.log('User', user);
-    console.log('loginInfo', loginInfo);
+    // console.log('User', user);
+    // console.log('loginInfo', loginInfo);
 
     useEffect(() => {
         const user = localStorage.getItem('User')
@@ -71,7 +71,7 @@ export const AUTHContextProvider = ({ children }) => {
         );
 
         setIsLoginLoading(false)
-        console.log(response);
+        // console.log(response);
 
         if (response.error) {
             return setLoginError(response);
